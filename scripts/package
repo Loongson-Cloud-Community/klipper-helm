@@ -3,7 +3,7 @@ set -e
 
 source $(dirname $0)/version
 
-ARCH=${ARCH:-"amd64"}
+ARCH=${ARCH:-"loong64"}
 SUFFIX="-${ARCH}"
 
 cd $(dirname $0)/..
@@ -11,9 +11,9 @@ cd $(dirname $0)/..
 TAG=${TAG:-${VERSION}${SUFFIX}}
 REPO=${REPO:-rancher}
 
-if echo $TAG | grep -q dirty; then
-    TAG=dev
-fi
+#if echo $TAG | grep -q dirty; then
+#    TAG=dev
+#fi
 
 IMAGE=${REPO}/klipper-helm:${TAG}
 DOCKERFILE=package/Dockerfile
@@ -21,5 +21,5 @@ if [ -e ${DOCKERFILE}.${ARCH} ]; then
     DOCKERFILE=${DOCKERFILE}.${ARCH}
 fi
 
-docker build --build-arg ARCH=${ARCH} -f ${DOCKERFILE} -t ${IMAGE} .
-echo Built ${IMAGE}
+docker build --build-arg ARCH=${ARCH} -f ${DOCKERFILE} -t  cr.loongnix.cn/rancher/klipper-helm:v0.4.3 .
+echo "Built cr.loongnix.cn/rancher/klipper-helm:v0.4.3"
